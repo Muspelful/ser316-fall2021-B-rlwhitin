@@ -206,14 +206,23 @@ public class BearWorkshop implements BearWorkshopInterface{
      * This method returns the savings for advertised bundle savings.
      * Specifically, 
      * - Bears are Buy 2 bears, get a third one free. It is always the cheapest bear that is free. The price here is meant when all discounts for a single bear are applied
-     * - It is 10% off the cost of a bear when a single bear has 10 or more accessories (anything on a bear is an accessory) that the customer pays for (so if clothes are free these do not count). 
-     * - Clothes are buy 2, get one free on each bear. Always the cheapest clothes are free. So if a bear has 6 clothes, then the two cheapest ones will be free and it would count as 4 accessories (see above).
-     * - Inking on a specific bear is free if and only if the bear without discounts applied to it costs more than $70. 
+     * - It is 10% off the cost of a bear when a single bear has 10 or more accessories (anything on a bear is an accessory) that the customer pays for
+     * (so if clothes are free these do not count).
+     *  
+     * - Clothes are buy 2, get one free on each bear. Always the cheapest clothes are free. So if a bear has 6 clothes, 
+     * then the two cheapest ones will be free and it would count as 4 accessories (see above).
+     * 
+     * - Inking on a specific bear is free if and only if the bear without discounts applied to it costs more than $70.
+     *  
      * TIP: the implemented savings method in the BearWorkshop1-5 do not use the getCost method implemented in this base class. They implement their own savings calculation
      *  		 All of them do however use the getRawCost method implemented in this base class. 
+     *  
      * EXAMPLE: You buy 3 bears, one bear has 3 clothing items, the other two have 4 clothing items. Non of them have embroidery or noise makers and they have the same stuffing. 
-     * Now, on each bear one clothing item will be free, since buy 2 get 1 free on a bear. So for costs we have the bear with stuffing. For one we pay only 2 clothing items, for 2 we still pay for 3 clothing items. 
-     * Since all clothing is the same priece the bear with only 2 paid clothing items is cheapest. So we will get that bear for free. We will only have to pay for 2 bears, with 3 clothing items each. 
+     * Now, on each bear one clothing item will be free, since buy 2 get 1 free on a bear. So for costs we have the bear with stuffing. For one we pay only 2 clothing items, 
+     * for 2 we still pay for 3 clothing items.
+     *  
+     * Since all clothing is the same priece the bear with only 2 paid clothing items is cheapest. So we will get that bear for free. 
+     * We will only have to pay for 2 bears, with 3 clothing items each. 
      * @return the savings if the customer would check with the current bears in the workshop out as double
      */
     public double calculateSavings() {
