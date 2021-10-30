@@ -31,5 +31,5 @@
 |23| Embroidery.java | 6 | Constant name should be in all caps | CG4 | LOW |
 |24| BearWorkshop.java | 156 | Should use named constants in place of "magic numbers" | CS | LOW |
 |25| BearWorkshop.java | 162 | One variable named "Cost" and one named "cost" | CS | LOW |
-|26| Customer.java | 31 | Customer is mispelled as "custumer" | CS | LOW |
+|26| Customer.java | 31 | Customer is mispelled as "custumer" | MD | LOW |
 |27| BearWorkshop.java | 129 | Adding to a linkedList already returns a boolean (and should always be true), so this function is overcomplicated | CS | LOW |

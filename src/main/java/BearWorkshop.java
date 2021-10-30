@@ -153,8 +153,8 @@ public class BearWorkshop implements BearWorkshopInterface{
      */
     @Override
     public double checkout() {
-        if (this.customer.age <= 13) {
-            if (this.customer.parent.age < 18)
+        if (this.customer.age <= Customer.CHILD_AGE) {
+            if (this.customer.parent.age < Customer.MINIMUM_GUARDIAN_AGE)
                 System.out.println("Guardian is too young");
                 return -1;
         }

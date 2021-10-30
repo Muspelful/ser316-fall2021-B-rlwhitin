@@ -7,6 +7,8 @@ import java.util.UUID;
  */
 public class Customer {
     int age;
+    public static final int CHILD_AGE = 13;
+    public static final int MINIMUM_GUARDIAN_AGE = 18;
 
     // customer has a name and a customer id
     Customer parent;
