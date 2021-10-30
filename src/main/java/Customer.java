@@ -28,10 +28,10 @@ public class Customer {
     /**
      * Parameterized ctor for Customers
      * @param age int age of customer
-     * @param custumer reference to guardian or null
+     * @param customer reference to guardian or null
      */
-    public Customer(int age, String state, Customer custumer) {
-        this.parent = custumer;
+    public Customer(int age, String state, Customer customer) {
+        this.parent = customer;
         this.age = age;
         this.customer_id = UUID.randomUUID().toString();
 
