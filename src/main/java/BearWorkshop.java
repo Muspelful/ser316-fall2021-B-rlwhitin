@@ -7,7 +7,7 @@ public class BearWorkshop implements BearWorkshopInterface{
     // Workshop has a collection of bears
     // Workshop has a customer
     Customer customer;
-    List<Bear> BearCart;
+    List<Bear> bearCart;
 
     /**
      * Default constructor for the Bear Workshop
@@ -21,7 +21,7 @@ public class BearWorkshop implements BearWorkshopInterface{
      * @param state customer is in
      */
     public BearWorkshop(String state) {
-        BearCart = new LinkedList<>();
+        bearCart = new LinkedList<>();
         customer = new Customer(state);
     }
 
@@ -126,7 +126,7 @@ public class BearWorkshop implements BearWorkshopInterface{
      */
     @Override
     public boolean addBear(Bear bear)       {
-        if (this.BearCart.add(bear))        {
+        if (this.bearCart.add(bear))        {
             return true;
                                             }
         else                                {
@@ -137,7 +137,7 @@ public class BearWorkshop implements BearWorkshopInterface{
     // Simple means to remove a bear from the shopping cart
     @Override
     public boolean removeBear(Bear bear)    {
-        if (this.BearCart.remove(bear))     {
+        if (this.bearCart.remove(bear))     {
             return true;
                                             }
         else                                {
@@ -160,10 +160,10 @@ public class BearWorkshop implements BearWorkshopInterface{
         }
         double temp = 0;
         Double Cost = Double.valueOf(0.00);
-        for (Bear bear: BearCart) {
+        for (Bear bear: bearCart) {
             Cost = Cost + getRawCost(bear);
         }
-        for (Bear bear: this.BearCart) {
+        for (Bear bear: this.bearCart) {
             temp += getCost(bear);
         }
 
@@ -171,25 +171,25 @@ public class BearWorkshop implements BearWorkshopInterface{
         double savings = 0;
         // calculate total cost
         double rawCost = 0;
-        for (Bear bear: BearCart) {
+        for (Bear bear: bearCart) {
             rawCost += this.getRawCost(bear);
         }
 
         // calculate adjusted cost
         double cost = 0;
-        for (Bear bear: this.BearCart) {
+        for (Bear bear: this.bearCart) {
             cost += this.getCost(bear);
         }
         savings += rawCost - cost; // calc delta between raw and prorated cost
 
         List<Bear> nonFreeBears = new LinkedList<>();
         int counter = 0;
-        int numberOfFreeBearsInBearCart = BearCart.size() / 3;
+        int numberOfFreeBearsInBearCart = bearCart.size() / 3;
         double discountedCost = 0;
         Bear freeBear = null;
 
         for (int count = 0; count <= numberOfFreeBearsInBearCart; ++count) {
-            for (Bear bear : BearCart) {
+            for (Bear bear : bearCart) {
                 if (freeBear != null && bear.price < freeBear.price)
                     freeBear = bear;
                     temp += temp - temp * 2 + bear.price;
