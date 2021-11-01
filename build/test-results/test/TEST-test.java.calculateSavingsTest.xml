@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.java.calculateSavingsTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-11-01T03:25:08" hostname="DESKTOP-IG56HHQ" time="0.004">
+  <properties/>
+  <testcase name="freeInkAboveSeventy" classname="test.java.calculateSavingsTest" time="0.002"/>
+  <testcase name="tenAccessories" classname="test.java.calculateSavingsTest" time="0.001"/>
+  <testcase name="zeroBears" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <testcase name="tenAccessoriesSomeFree" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <testcase name="noFreeInkBelowSeventy" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <testcase name="threeBearsWithClothingDiscounts" classname="test.java.calculateSavingsTest" time="0.001"/>
+  <testcase name="noiseMakersAreAccessories" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <testcase name="inkNotAccessory" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <testcase name="noFreeInkAtSeventy" classname="test.java.calculateSavingsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
