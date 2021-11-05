@@ -10,6 +10,10 @@ apply plugin: 'jacoco'
 mainClassName = 'main.java.Main'
 
 
+test {
+	exclude '**/GivenBlackBox.class'
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     jcenter()
