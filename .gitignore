@@ -1,1 +1,10 @@
 /.gradle/
+*.class
+*.jar
+!gradle-wrapper.jar
+build/
+bin/
+.settings/
+*.classpath
+*.project
+*.exec
