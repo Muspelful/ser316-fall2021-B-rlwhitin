@@ -24,3 +24,4 @@ All children must be 13 years of age in order to buy a bear. Alternatively, they
 can have parental consent - that parent must be 18 years of age or older.
 
 
+ 
