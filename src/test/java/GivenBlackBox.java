@@ -1,6 +1,29 @@
 package test.java;
 
-import main.java.*;
+import java.lang.reflect.Constructor;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import main.java.Bear;
+import main.java.BearWorkshop;
+import main.java.BearWorkshop1;
+import main.java.BearWorkshop2;
+import main.java.BearWorkshop3;
+import main.java.BearWorkshop4;
+import main.java.BearWorkshop5;
+import main.java.Clothing;
+import main.java.Embroidery;
+import main.java.NoiseMaker;
+import main.java.Stuffing;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,17 +31,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 //import main.java.BearWorkshop;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-/***
+/**
  * This class provides a framework to implement black box tests for various
  * implementations of the BearWorkshop Class. The BearWorkshop is having a
  * blowout sale and is offering the following savings.
@@ -32,6 +49,11 @@ public class GivenBlackBox {
         this.classUnderTest = (Class<BearWorkshop>) classUnderTest;
     }
 
+    /**
+     * I don't have any idea how this works.
+     * It was never explained, and google isn't helping.
+     * @return
+     */
     @Parameters
     public static Collection<Object[]> courseGradesUnderTest() {
         Object[][] classes = {
@@ -45,6 +67,12 @@ public class GivenBlackBox {
         return Arrays.asList(classes);
     }
 
+    /**
+     * Nor this.
+     * @param name
+     * @return
+     * @throws Exception
+     */
     private BearWorkshop createBearWorkshop(String name) throws Exception {
         Constructor<BearWorkshop> constructor = classUnderTest.getConstructor(String.class);
         return constructor.newInstance(name);
@@ -76,17 +104,18 @@ public class GivenBlackBox {
      */
     @Test
     public void oneBearNoSavings() {
-    	// One Bear base stuffing, no saving expected
+        // One Bear base stuffing, no saving expected
         
         BearWorkshop oneBear = null;
         try {
-        	oneBear = createBearWorkshop("NY");
+            oneBear = createBearWorkshop("NY");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         oneBear.addBear(new Bear(Stuffing.stuffing.BASE)); // $30 stuffing + $1 casing -- should be no savings at all
         oneBearExpected = 0.00; // no savings since no clothing
-    	
+        
         Double ans = oneBear.calculateSavings();
         assertEquals(oneBearExpected, ans);
     }
@@ -95,13 +124,14 @@ public class GivenBlackBox {
     // sample test
     @Test
     public void threeBearsSaveOnCheapest() {
-    	 // Three Bears expected to not pay for cheapest one
-    	BearWorkshop threeBears = null;
+         // Three Bears expected to not pay for cheapest one
+        BearWorkshop threeBears = null;
         try {
-        	threeBears = createBearWorkshop("AZ");
+            threeBears = createBearWorkshop("AZ");
         } catch (Exception e) {
+            e.printStackTrace();
         }
-    	
+        
         threeBears.addBear(new Bear(Stuffing.stuffing.BASE)); // this is the cheapest one
         threeBears.addBear(new Bear(Stuffing.stuffing.DOWN));
         threeBears.addBear(new Bear(Stuffing.stuffing.FOAM));
@@ -119,15 +149,16 @@ public class GivenBlackBox {
         try {
             bears = createBearWorkshop("DC");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         Bear customBear = new Bear(Stuffing.stuffing.BASE); // $31
         bears.addBear(customBear);
 
-	    customBear.clothing.add(new Clothing(4, "Hat")); //$35
-	    customBear.clothing.add(new Clothing(4, "Sunglasses")); //$39
-	    customBear.clothing.add(new Clothing(4, "Shoes")); // free
-	    
+        customBear.clothing.add(new Clothing(4, "Hat")); //$35
+        customBear.clothing.add(new Clothing(4, "Sunglasses")); //$39
+        customBear.clothing.add(new Clothing(4, "Shoes")); // free
+        
         Double bearsExpected = 4.0; // one cloth item for free
         Double ans = bears.calculateSavings();
         assertEquals(bearsExpected, ans, 0.005);
@@ -138,14 +169,14 @@ public class GivenBlackBox {
      */
     @Test
     public void zeroBears() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	assertEquals(bearShop.calculateSavings(), 0, .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        assertEquals(bearShop.calculateSavings(), 0, .005);
     }
     
     /**
@@ -153,19 +184,19 @@ public class GivenBlackBox {
      */
     @Test
     public void noFreeInkAtSeventy() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear inkBear = new Bear(Stuffing.stuffing.BASE);
-    	bearShop.addBear(inkBear);
-    	inkBear.clothing.add(new Clothing(35, "very fancy hat"));
-    	inkBear.ink = new Embroidery("test");
-    	
-    	assertEquals(0, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        bearShop.addBear(inkBear);
+        inkBear.clothing.add(new Clothing(35, "very fancy hat"));
+        inkBear.ink = new Embroidery("test");
+        
+        assertEquals(0, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -173,19 +204,19 @@ public class GivenBlackBox {
      */
     @Test
     public void noFreeInkBelowSeventy() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear inkBear = new Bear(Stuffing.stuffing.BASE);
-    	bearShop.addBear(inkBear);
-    	inkBear.clothing.add(new Clothing(34, "very fancy hat"));
-    	inkBear.ink = new Embroidery("test");
-    	
-    	assertEquals(0, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        bearShop.addBear(inkBear);
+        inkBear.clothing.add(new Clothing(34, "very fancy hat"));
+        inkBear.ink = new Embroidery("test");
+        
+        assertEquals(0, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -193,21 +224,21 @@ public class GivenBlackBox {
      */
     @Test
     public void freeInkAboveSeventy() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear inkBear = new Bear(Stuffing.stuffing.BASE);
-    	bearShop.addBear(inkBear);
-    	inkBear.clothing.add(new Clothing(26, "fancy hat"));
-    	inkBear.clothing.add(new Clothing(5, "shoddy boots"));
-    	inkBear.clothing.add(new Clothing(5, "glasses"));
-    	inkBear.ink = new Embroidery("test");
-    	
-    	assertEquals(9, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        bearShop.addBear(inkBear);
+        inkBear.clothing.add(new Clothing(26, "fancy hat"));
+        inkBear.clothing.add(new Clothing(5, "shoddy boots"));
+        inkBear.clothing.add(new Clothing(5, "glasses"));
+        inkBear.ink = new Embroidery("test");
+        
+        assertEquals(9, bearShop.calculateSavings(), .005);
     }
     
     
@@ -218,32 +249,32 @@ public class GivenBlackBox {
      */
     @Test
     public void threeBearsWithClothingDiscounts() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear[] bears = new Bear[3];
-    	
-    	//bears[0] will have a raw cost of $75 but a discounted cost of $71, since the ink is free.
-    	bears[0] = new Bear(Stuffing.stuffing.BASE);
-    	bears[0].clothing.add(new Clothing(40, "very, VERY fancy hat"));
-    	bears[0].ink = new Embroidery("test");
-    	//bears[1] will cost $73
-    	bears[1] = new Bear(Stuffing.stuffing.BASE);
-    	bears[1].clothing.add(new Clothing(42, "very fancy hat"));
-    	//bears[2] will also cost $73
-    	bears[2] = new Bear(Stuffing.stuffing.BASE);
-    	bears[2].clothing.add(new Clothing(42, "very fancy hat"));
-    	
-    	for(Bear thisBear : bears) {
-    		bearShop.addBear(thisBear);
-    	}
-    	
-    	
-    	assertEquals(75, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear[] bears = new Bear[3];
+        
+        //bears[0] will have a raw cost of $75 but a discounted cost of $71, since the ink is free.
+        bears[0] = new Bear(Stuffing.stuffing.BASE);
+        bears[0].clothing.add(new Clothing(40, "very, VERY fancy hat"));
+        bears[0].ink = new Embroidery("test");
+        //bears[1] will cost $73
+        bears[1] = new Bear(Stuffing.stuffing.BASE);
+        bears[1].clothing.add(new Clothing(42, "very fancy hat"));
+        //bears[2] will also cost $73
+        bears[2] = new Bear(Stuffing.stuffing.BASE);
+        bears[2].clothing.add(new Clothing(42, "very fancy hat"));
+        
+        for (Bear thisBear : bears) {
+            bearShop.addBear(thisBear);
+        }
+        
+        
+        assertEquals(75, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -251,21 +282,21 @@ public class GivenBlackBox {
      */
     @Test
     public void tenAccessoriesSomeFree() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear bear = new Bear(Stuffing.stuffing.BASE);
-    	for(int count = 1; count <= 10; count++) {
-    		bear.clothing.add(new Clothing(5, "ring"));
-    	}
-    	
-    	bearShop.addBear(bear);
-    	
-    	assertEquals(15, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        for (int count = 1; count <= 10; count++) {
+            bear.clothing.add(new Clothing(5, "ring"));
+        }
+        
+        bearShop.addBear(bear);
+        
+        assertEquals(15, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -273,21 +304,21 @@ public class GivenBlackBox {
      */
     @Test
     public void tenAccessories() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear bear = new Bear(Stuffing.stuffing.BASE);
-    	for(int count = 1; count <= 14; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	
-    	bearShop.addBear(bear);
-    	
-    	assertEquals(23.1, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        for (int count = 1; count <= 14; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        
+        bearShop.addBear(bear);
+        
+        assertEquals(23.1, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -295,23 +326,23 @@ public class GivenBlackBox {
      */
     @Test
     public void inkNotAccessory() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear bear = new Bear(Stuffing.stuffing.BASE);
-    	for(int count = 1; count <= 13; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	
-    	bear.ink = new Embroidery("test");
-    	
-    	bearShop.addBear(bear);
-    	
-    	assertEquals(20, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        for (int count = 1; count <= 13; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        
+        bear.ink = new Embroidery("test");
+        
+        bearShop.addBear(bear);
+        
+        assertEquals(20, bearShop.calculateSavings(), .005);
     }
     
     /**
@@ -319,22 +350,22 @@ public class GivenBlackBox {
      */
     @Test
     public void noiseMakersAreAccessories() {
-    	BearWorkshop bearShop = null;
-    	try {
-			bearShop = createBearWorkshop("CA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	Bear bear = new Bear(Stuffing.stuffing.BASE);
-    	for(int count = 1; count <= 13; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	
-    	bear.addNoise(new NoiseMaker());
-    	
-    	bearShop.addBear(bear);
-    	
-    	assertEquals(23.7, bearShop.calculateSavings(), .005);
+        BearWorkshop bearShop = null;
+        try {
+            bearShop = createBearWorkshop("CA");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        for (int count = 1; count <= 13; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        
+        bear.addNoise(new NoiseMaker());
+        
+        bearShop.addBear(bear);
+        
+        assertEquals(23.7, bearShop.calculateSavings(), .005);
     }
 }
