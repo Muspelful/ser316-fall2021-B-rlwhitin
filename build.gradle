@@ -28,22 +28,22 @@ dependencies {
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
 /////////////////////////////////////////////////////////////////////
-// apply plugin: 'checkstyle'
-// checkstyle {
-//   // Keep checkstyle a little quieter
-//   ignoreFailures = true
-//   showViolations = false
-// }
+apply plugin: 'checkstyle'
+checkstyle {
+  // Keep checkstyle a little quieter
+  ignoreFailures = true
+  showViolations = false
+}
 
-// tasks.withType(Checkstyle) {
-//   reports {
-//     html.enabled = true
-//     xml.enabled = false
-//   }
-// }
-// checkstyle {
-//     toolVersion = "8.8"
-// }
+tasks.withType(Checkstyle) {
+  reports {
+    html.enabled = true
+    xml.enabled = false
+  }
+}
+checkstyle {
+    toolVersion = "8.8"
+}
 
 
 ///////////////////////////////////////////////////////////////////////
