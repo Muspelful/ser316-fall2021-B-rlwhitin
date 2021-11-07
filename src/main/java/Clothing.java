@@ -16,6 +16,6 @@ public class Clothing implements Comparable<Clothing> {
     }
 
     public int compareTo(Clothing clothes) {
-    	return new Double(this.price).compareTo(clothes.price);
+        return new Double(this.price).compareTo(clothes.price);
     }
 }

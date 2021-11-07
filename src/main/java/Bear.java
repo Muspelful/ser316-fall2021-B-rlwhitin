@@ -1,9 +1,9 @@
 package main.java;
 
-import main.java.Stuffing.stuffing;
 import java.util.LinkedList;
+import main.java.Stuffing.stuffing;
 
-public class Bear implements Comparable<Bear>{
+public class Bear implements Comparable<Bear> {
     public Casing casing;
     public Stuffing stuff;
     public Embroidery ink; 
@@ -18,6 +18,9 @@ public class Bear implements Comparable<Bear>{
     // bear has a noisemaker (opt)
 
 
+    /**
+     * Default constructor with basic stuffing.
+     */
     public Bear() {
         this.casing = new Casing();
         this.stuff = new Stuffing(stuffing.BASE);
@@ -27,6 +30,10 @@ public class Bear implements Comparable<Bear>{
         price = 0;
     }
 
+    /**
+     * Constructor which also sets stuffing.
+     * @param stuff The stuffing for the bear.
+     */
     public Bear(stuffing stuff) {
         this.casing = new Casing();
         this.stuff = new Stuffing(stuff);
@@ -36,10 +43,19 @@ public class Bear implements Comparable<Bear>{
         price = 0;
     }
 
+    /**
+     * Sets the bear's price.
+     * @param incomingPrice The new price.
+     */
     public void setPrice(double incomingPrice) {
         this.price = incomingPrice;
     }
 
+    /**
+     * Adds a noisemaker.
+     * @param noise The noisemaker being added.
+     * @return True if successful, otherwise false.
+     */
     public boolean addNoise(NoiseMaker noise) {
         if (this.noisemakers.size() >= 5) {
             return false;
@@ -59,24 +75,24 @@ public class Bear implements Comparable<Bear>{
      * @return The bear's raw cost.
      */
     public double getRawCost() {
-    	double rawCost = 0;
-		for (int i = 0; i < clothing.size(); i++) {
-			Clothing clothes = clothing.get(i);
-			rawCost += clothes.price;
+        double rawCost = 0;
+        for (int i = 0; i < clothing.size(); i++) {
+            Clothing clothes = clothing.get(i);
+            rawCost += clothes.price;
 
-		}
+        }
 
-		for (NoiseMaker noise: noisemakers) {
-			rawCost += noise.price;
-		}
+        for (NoiseMaker noise: noisemakers) {
+            rawCost += noise.price;
+        }
 
-		if (ink != null) {
-			rawCost += ink.price;
-		}
+        if (ink != null) {
+            rawCost += ink.price;
+        }
 
-		rawCost += stuff.price;
-		rawCost += casing.priceModifier;
-		return rawCost;
+        rawCost += stuff.price;
+        rawCost += casing.priceModifier;
+        return rawCost;
     }
 
     @Override
