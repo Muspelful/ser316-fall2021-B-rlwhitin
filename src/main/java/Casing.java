@@ -5,6 +5,13 @@ public class Casing {
 
     String description;
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
     public Casing() {
         this(1.00, "Default outer shell");
     }

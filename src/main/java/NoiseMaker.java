@@ -40,6 +40,21 @@ public class NoiseMaker {
     public enum Location {
         RIGHT_HAND, LEFT_HAND, RIGHT_FOOT, LEFT_FOOT, CENTERBODY
     }
+
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * @return the recording
+     */
+    public String getRecording() {
+        return recording;
+    }
 }
 
 

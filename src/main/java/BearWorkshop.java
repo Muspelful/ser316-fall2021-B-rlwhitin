@@ -198,9 +198,9 @@ public class BearWorkshop implements BearWorkshopInterface {
      * All of them do however use the getRawCost method implemented in this base class. 
      *  
      * <p>e.g.: You buy 3 bears, one bear has 3 clothing items, the other two have 4 clothing items.
-     * None of them have embroidery or noise makers and they have the same stuffing. 
+     * None of them have embroidery or noise makers and they have the same StuffingTypes. 
      * Now, on each bear one clothing item will be free, since buy 2 get 1 free on a bear.
-     * So for costs we have the bear with stuffing. For one we pay only 2 clothing items, 
+     * So for costs we have the bear with StuffingTypes. For one we pay only 2 clothing items, 
      * for 2 we still pay for 3 clothing items.
      * 
      * <p>Since all clothing is the same price the bear with only 2 paid clothing items is cheapest.

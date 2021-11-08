@@ -1,7 +1,7 @@
 package main.java;
 
 import java.util.LinkedList;
-import main.java.Stuffing.stuffing;
+import main.java.Stuffing.StuffingTypes;
 
 public class Bear implements Comparable<Bear> {
     public Casing casing;
@@ -13,17 +13,17 @@ public class Bear implements Comparable<Bear> {
     public double rawCost;
     public double discountedCost;
     // bear has a shell (requ)
-    // bear has stuffing (req)
+    // bear has StuffingTypes (req)
     // bear has a tattoo/emroider or not (opt)
     // bear has a noisemaker (opt)
 
 
     /**
-     * Default constructor with basic stuffing.
+     * Default constructor with basic StuffingTypes.
      */
     public Bear() {
         this.casing = new Casing();
-        this.stuff = new Stuffing(stuffing.BASE);
+        this.stuff = new Stuffing(StuffingTypes.BASE);
         noisemakers = new LinkedList<>();
         clothing = new LinkedList<>();
         ink = new Embroidery("");
@@ -31,10 +31,10 @@ public class Bear implements Comparable<Bear> {
     }
 
     /**
-     * Constructor which also sets stuffing.
-     * @param stuff The stuffing for the bear.
+     * Constructor which also sets StuffingTypes.
+     * @param stuff The StuffingTypes for the bear.
      */
-    public Bear(stuffing stuff) {
+    public Bear(StuffingTypes stuff) {
         this.casing = new Casing();
         this.stuff = new Stuffing(stuff);
         noisemakers = new LinkedList<>();
@@ -94,9 +94,47 @@ public class Bear implements Comparable<Bear> {
         rawCost += casing.priceModifier;
         return rawCost;
     }
+    
+    /**
+     * Returns true if the price is equal, otherwise false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Bear)) {
+            return false;
+        }
+        
+        Bear bear = (Bear) o;
 
+        BearWorkshop shop = new BearWorkshop();
+        if (!(shop.getCost(this) == shop.getCost(bear))) {
+            return false;
+        }
+        
+        
+        return true;
+    }
+
+    /**
+     * Aids in sorting by price.
+     */
     @Override
     public int compareTo(Bear bear) {
-        return new Double(this.price).compareTo(bear.price);
+        if(this.equals(bear)) {
+            return 0;
+        }
+        else {
+            return new Double(this.price).compareTo(bear.price);
+        }
+    }
+
+    /**
+     * Hashcode is the cost of the bear in cents, as an integer.
+     * (So a hashcode of 250 means the bear costs $2.50.)
+     */
+    @Override
+    public int hashCode() {
+        BearWorkshop shop = new BearWorkshop();
+        return (int) (shop.getCost(this) * 100);
     }
 }

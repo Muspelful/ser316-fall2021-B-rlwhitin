@@ -4,9 +4,6 @@ import java.lang.reflect.Constructor;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import main.java.Bear;
 import main.java.BearWorkshop;
 import main.java.BearWorkshop1;
@@ -18,11 +15,6 @@ import main.java.Clothing;
 import main.java.Embroidery;
 import main.java.NoiseMaker;
 import main.java.Stuffing;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -104,7 +96,7 @@ public class GivenBlackBox {
      */
     @Test
     public void oneBearNoSavings() {
-        // One Bear base stuffing, no saving expected
+        // One Bear base StuffingTypes, no saving expected
         
         BearWorkshop oneBear = null;
         try {
@@ -113,7 +105,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        oneBear.addBear(new Bear(Stuffing.stuffing.BASE)); // $30 stuffing + $1 casing -- should be no savings at all
+        oneBear.addBear(new Bear(Stuffing.StuffingTypes.BASE)); // $30 StuffingTypes + $1 casing -- should be no savings at all
         oneBearExpected = 0.00; // no savings since no clothing
         
         Double ans = oneBear.calculateSavings();
@@ -132,9 +124,9 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        threeBears.addBear(new Bear(Stuffing.stuffing.BASE)); // this is the cheapest one
-        threeBears.addBear(new Bear(Stuffing.stuffing.DOWN));
-        threeBears.addBear(new Bear(Stuffing.stuffing.FOAM));
+        threeBears.addBear(new Bear(Stuffing.StuffingTypes.BASE)); // this is the cheapest one
+        threeBears.addBear(new Bear(Stuffing.StuffingTypes.DOWN));
+        threeBears.addBear(new Bear(Stuffing.StuffingTypes.FOAM));
         threeBearsExpected = 31.00;
 
         Double ans = threeBears.calculateSavings();
@@ -152,7 +144,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear customBear = new Bear(Stuffing.stuffing.BASE); // $31
+        Bear customBear = new Bear(Stuffing.StuffingTypes.BASE); // $31
         bears.addBear(customBear);
 
         customBear.clothing.add(new Clothing(4, "Hat")); //$35
@@ -191,7 +183,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(35, "very fancy hat"));
         inkBear.ink = new Embroidery("test");
@@ -211,7 +203,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(34, "very fancy hat"));
         inkBear.ink = new Embroidery("test");
@@ -231,7 +223,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(26, "fancy hat"));
         inkBear.clothing.add(new Clothing(5, "shoddy boots"));
@@ -259,14 +251,14 @@ public class GivenBlackBox {
         Bear[] bears = new Bear[3];
         
         //bears[0] will have a raw cost of $75 but a discounted cost of $71, since the ink is free.
-        bears[0] = new Bear(Stuffing.stuffing.BASE);
+        bears[0] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[0].clothing.add(new Clothing(40, "very, VERY fancy hat"));
         bears[0].ink = new Embroidery("test");
         //bears[1] will cost $73
-        bears[1] = new Bear(Stuffing.stuffing.BASE);
+        bears[1] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[1].clothing.add(new Clothing(42, "very fancy hat"));
         //bears[2] will also cost $73
-        bears[2] = new Bear(Stuffing.stuffing.BASE);
+        bears[2] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[2].clothing.add(new Clothing(42, "very fancy hat"));
         
         for (Bear thisBear : bears) {
@@ -289,7 +281,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 10; count++) {
             bear.clothing.add(new Clothing(5, "ring"));
         }
@@ -311,7 +303,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 14; count++) {
             bear.clothing.add(new Clothing());
         }
@@ -333,7 +325,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 13; count++) {
             bear.clothing.add(new Clothing());
         }
@@ -357,7 +349,7 @@ public class GivenBlackBox {
             e.printStackTrace();
         }
         
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 13; count++) {
             bear.clothing.add(new Clothing());
         }

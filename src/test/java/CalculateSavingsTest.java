@@ -2,8 +2,6 @@ package test.java;
 
 import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.Constructor;
-
 import main.java.Bear;
 import main.java.BearWorkshop;
 import main.java.Clothing;
@@ -54,7 +52,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void noFreeInkAtSeventy() {
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(35, "very fancy hat"));
         inkBear.ink = new Embroidery("test");
@@ -67,7 +65,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void noFreeInkBelowSeventy() {
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(34, "very fancy hat"));
         inkBear.ink = new Embroidery("test");
@@ -81,7 +79,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void freeInkAboveSeventy() {
-        Bear inkBear = new Bear(Stuffing.stuffing.BASE);
+        Bear inkBear = new Bear(Stuffing.StuffingTypes.BASE);
         bearShop.addBear(inkBear);
         inkBear.clothing.add(new Clothing(26, "fancy hat"));
         inkBear.clothing.add(new Clothing(5, "shoddy boots"));
@@ -101,14 +99,14 @@ public class CalculateSavingsTest {
     public void threeBearsWithClothingDiscounts() {
         Bear[] bears = new Bear[3];
         //bears[0] will have a raw cost of $75 but a discounted cost of $71, since the ink is free.
-        bears[0] = new Bear(Stuffing.stuffing.BASE);
+        bears[0] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[0].clothing.add(new Clothing(40, "very, VERY fancy hat"));
         bears[0].ink = new Embroidery("test");
         //bears[1] will cost $73
-        bears[1] = new Bear(Stuffing.stuffing.BASE);
+        bears[1] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[1].clothing.add(new Clothing(42, "very fancy hat"));
         //bears[2] will also cost $73
-        bears[2] = new Bear(Stuffing.stuffing.BASE);
+        bears[2] = new Bear(Stuffing.StuffingTypes.BASE);
         bears[2].clothing.add(new Clothing(42, "very fancy hat"));
         
         for (Bear thisBear : bears) {
@@ -125,7 +123,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void tenAccessoriesSomeFree() {
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 10; count++) {
             bear.clothing.add(new Clothing(5, "ring"));
         }
@@ -140,7 +138,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void tenAccessories() {
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 14; count++) {
             bear.clothing.add(new Clothing());
         }
@@ -156,7 +154,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void inkNotAccessory() {
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 13; count++) {
             bear.clothing.add(new Clothing());
         }
@@ -174,7 +172,7 @@ public class CalculateSavingsTest {
      */
     @Test
     public void noiseMakersAreAccessories() {
-        Bear bear = new Bear(Stuffing.stuffing.BASE);
+        Bear bear = new Bear(Stuffing.StuffingTypes.BASE);
         for (int count = 1; count <= 13; count++) {
             bear.clothing.add(new Clothing());
         }
