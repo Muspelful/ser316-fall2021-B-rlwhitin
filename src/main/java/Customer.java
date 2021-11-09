@@ -37,7 +37,25 @@ public class Customer {
 
         this.state = state;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Customer)) {
+            return false;
+        }
+        Customer c = (Customer) o;
+        if (!customer_id.equals(c.customer_id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public int hashCode() {
+        return customer_id.hashCode();
+    }
 
-
-
+    public int compareTo(Customer otherCustomer) {
+        return customer_id.compareTo(otherCustomer.customer_id);
+    }
 }

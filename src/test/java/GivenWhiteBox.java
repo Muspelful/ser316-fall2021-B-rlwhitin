@@ -2,9 +2,7 @@ package test.java;
 
 import main.java.*;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 
@@ -19,7 +17,7 @@ public class GivenWhiteBox {
 
     @Before
     public void setUp() throws Exception {
-    	shop = new BearWorkshop();
+        shop = new BearWorkshop();
     }
 
 
@@ -41,9 +39,9 @@ public class GivenWhiteBox {
      */
     @Test
     public void hasNoiseMakerCost() {
-    	Bear bear = new Bear();
-    	bear.noisemakers.add(new NoiseMaker());
-    	assertEquals(shop.getCost(bear), 41, .005);
+        Bear bear = new Bear();
+        bear.noisemakers.add(new NoiseMaker());
+        assertEquals(shop.getCost(bear), 41, .005);
     }
     
     /*
@@ -52,9 +50,9 @@ public class GivenWhiteBox {
      */
     @Test
     public void nullInkCost() {
-    	Bear bear = new Bear();
-    	bear.ink = null;
-    	assertEquals(shop.getCost(bear), 31, .005);
+        Bear bear = new Bear();
+        bear.ink = null;
+        assertEquals(shop.getCost(bear), 31, .005);
     }
     
     /*
@@ -63,111 +61,111 @@ public class GivenWhiteBox {
      */
     @Test
     public void threeClothesCost() {
-    	Bear bear = new Bear();
-    	for(int count = 0; count < 3; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	assertEquals(shop.getCost(bear), 39, .005);
+        Bear bear = new Bear();
+        for (int count = 0; count < 3; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        assertEquals(shop.getCost(bear), 39, .005);
     }
     
     @Test
     public void tenAccessoriesCost() {
-    	Bear bear = new Bear();
-    	for(int count = 0; count < 14; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	assertEquals(shop.getCost(bear), 63.9,.005);
+        Bear bear = new Bear();
+        for (int count = 0; count < 14; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        assertEquals(shop.getCost(bear), 63.9,.005);
     }
     
     @Test
     public void threeBears() {
-    	for(int count = 0; count < 3; count++) {
-    		shop.addBear(new Bear());
-    	}
-    	assertEquals(shop.calculateSavings(), 31, .005);
+        for (int count = 0; count < 3; count++) {
+            shop.addBear(new Bear());
+        }
+        assertEquals(shop.calculateSavings(), 31, .005);
     }
     
     @Test
     public void testRemoveBear() {
-    	Bear bear = new Bear();
-    	shop.addBear(bear);
-    	assertEquals(shop.removeBear(bear), true);
+        Bear bear = new Bear();
+        shop.addBear(bear);
+        assertEquals(shop.removeBear(bear), true);
     }
     
     @Test
     public void rawClothes() {
-    	Bear bear = new Bear();
-    	bear.clothing.add(new Clothing());
-    	assertEquals(shop.getRawCost(bear), 35, .005);
+        Bear bear = new Bear();
+        bear.clothing.add(new Clothing());
+        assertEquals(shop.getRawCost(bear), 35, .005);
     }
     
     @Test
     public void rawNoisemaker() {
-    	Bear bear = new Bear();
-    	bear.noisemakers.add(new NoiseMaker());
-    	assertEquals(shop.getRawCost(bear), 41, .005);
+        Bear bear = new Bear();
+        bear.noisemakers.add(new NoiseMaker());
+        assertEquals(shop.getRawCost(bear), 41, .005);
     }
     
     @Test
     public void nullInkRawCost() {
-    	Bear bear = new Bear();
-    	bear.ink = null;
-    	assertEquals(shop.getRawCost(bear), 31, .005);
+        Bear bear = new Bear();
+        bear.ink = null;
+        assertEquals(shop.getRawCost(bear), 31, .005);
     }
     
     @Test
     public void newYorkTax() {
-    	BearWorkshop shopNY = new BearWorkshop("NY");
-    	assertEquals(shopNY.calculateTax(), 1.09, .005);
+        BearWorkshop shopNY = new BearWorkshop("NY");
+        assertEquals(shopNY.calculateTax(), 1.09, .005);
     }
     
     @Test
     public void virginiaTax() {
-    	BearWorkshop shopNY = new BearWorkshop("VA");
-    	assertEquals(shopNY.calculateTax(), 1.05, .005);
+        BearWorkshop shopNY = new BearWorkshop("VA");
+        assertEquals(shopNY.calculateTax(), 1.05, .005);
     }
     
     @Test
     public void dcTax() {
-    	BearWorkshop shopNY = new BearWorkshop("DC");
-    	assertEquals(shopNY.calculateTax(), 1.105, .005);
+        BearWorkshop shopNY = new BearWorkshop("DC");
+        assertEquals(shopNY.calculateTax(), 1.105, .005);
     }
     
     @Test
     public void californiaTax() {
-    	BearWorkshop shopNY = new BearWorkshop("CA");
-    	assertEquals(shopNY.calculateTax(), 1.1, .005);
+        BearWorkshop shopNY = new BearWorkshop("CA");
+        assertEquals(shopNY.calculateTax(), 1.1, .005);
     }
     
     @Test
     public void defaultTax() {
-    	BearWorkshop shopNY = new BearWorkshop("NH");
-    	assertEquals(shopNY.calculateTax(), 1.05, .005);
+        BearWorkshop shopNY = new BearWorkshop("NH");
+        assertEquals(shopNY.calculateTax(), 1.05, .005);
     }
     
     @Test
     public void tenAccessoriesSavings() {
-    	Bear bear = new Bear();
-    	for(int count = 0; count < 14; count++) {
-    		bear.clothing.add(new Clothing());
-    	}
-    	shop.addBear(bear);
-    	assertEquals(shop.calculateSavings(), 23.1,.005);
+        Bear bear = new Bear();
+        for (int count = 0; count < 14; count++) {
+            bear.clothing.add(new Clothing());
+        }
+        shop.addBear(bear);
+        assertEquals(shop.calculateSavings(), 23.1,.005);
     }
     
     @Test
     public void noiseMakerSavings() {
-    	Bear bear = new Bear();
-    	bear.noisemakers.add(new NoiseMaker());
-    	shop.addBear(bear);
-    	assertEquals(shop.calculateSavings(), 0,.005);
+        Bear bear = new Bear();
+        bear.noisemakers.add(new NoiseMaker());
+        shop.addBear(bear);
+        assertEquals(shop.calculateSavings(), 0,.005);
     }
     
     @Test
     public void nullInkSavings() {
-    	Bear bear = new Bear();
-    	bear.ink = null;
-    	shop.addBear(bear);
-    	assertEquals(shop.calculateSavings(), 0,.005); 
+        Bear bear = new Bear();
+        bear.ink = null;
+        shop.addBear(bear);
+        assertEquals(shop.calculateSavings(), 0,.005); 
     }
 }
