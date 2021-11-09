@@ -6,7 +6,7 @@ import java.util.UUID;
  * This a class for Customer in the Bear Workshop.
  */
 public class Customer {
-    int age;
+    private int age;
     public static final int CHILD_AGE = 13;
     public static final int MINIMUM_GUARDIAN_AGE = 18;
 
@@ -38,6 +38,13 @@ public class Customer {
         this.state = state;
     }
     
+    /**
+     * @return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Customer)) {

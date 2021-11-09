@@ -164,7 +164,7 @@ public class BearWorkshop implements BearWorkshopInterface {
     // Fixed in assignment 3: massively simplified by using other functions and an enhanced for loop.
     @Override
     public double checkout() {
-        if (this.customer.age <= 13 && this.customer.parent.age < 18) {
+        if (this.customer.getAge() <= 13 && this.customer.parent.getAge() < 18) {
             System.out.println("Guardian is too young");
             return -1;
         }
