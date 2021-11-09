@@ -16,12 +16,6 @@ public class Clothing implements Comparable<Clothing> {
     }
 
     public int compareTo(Clothing clothes) {
-        if (clothes.price > this.price) {
-            return 1;
-        } else if (clothes.price < this.price) {
-            return -1;
-        } else {
-            return 0;
-        }
+    	return new Double(this.price).compareTo(clothes.price);
     }
 }
