@@ -7,6 +7,8 @@ import java.util.UUID;
  */
 public class Customer {
     int age;
+    public static final int CHILD_AGE = 13;
+    public static final int MINIMUM_GUARDIAN_AGE = 18;
 
     // customer has a name and a customer id
     Customer parent;
@@ -26,10 +28,10 @@ public class Customer {
     /**
      * Parameterized ctor for Customers
      * @param age int age of customer
-     * @param custumer reference to guardian or null
+     * @param customer reference to guardian or null
      */
-    public Customer(int age, String state, Customer custumer) {
-        this.parent = custumer;
+    public Customer(int age, String state, Customer customer) {
+        this.parent = customer;
         this.age = age;
         this.customer_id = UUID.randomUUID().toString();
 

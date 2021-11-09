@@ -30,7 +30,6 @@ dependencies {
    ignoreFailures = true
    showViolations = false
  }
-
  tasks.withType(Checkstyle) {
    reports {
      html.enabled = true
