@@ -11,9 +11,13 @@ public class BearWorkshop implements BearWorkshopInterface {
     // Workshop has a customer
     Customer customer;
     List<Bear> bearCart;
-    private static final int GET_ONE_BEAR_FREE = 3;
-    private static final int GET_ONE_CLOTHES_FREE = 3;
-    private static final int TEN_PERCENT_OFF = 10;
+    //The number of bears to get one free
+    private static int oneBearFree = 3;
+    //The number of clothes on one bear to get one free
+    private static int oneClothesFree = 3;
+    //The number of accessories required to get a discount.
+    private static int bulkAccThreshold = 10;
+    private static double bulkAccDiscount = .1;
 
     /**
      * Default constructor for BearWorkshop.
@@ -44,7 +48,7 @@ public class BearWorkshop implements BearWorkshopInterface {
     public double getCost(Bear bear) {
         double cost = 0;
         Collections.sort(bear.clothing);
-        int numFree = bear.clothing.size() / 3;
+        int numFree = bear.clothing.size() / oneClothesFree;
         ArrayList<Clothing> freeClothes = new ArrayList<>();
 
         for (int i = 0; i < bear.clothing.size(); i++) {
@@ -66,11 +70,11 @@ public class BearWorkshop implements BearWorkshopInterface {
 
         cost += bear.stuff.price;
         cost += bear.casing.priceModifier;
-        
+
         int accessoryCount = bear.clothing.size() + bear.noisemakers.size() - freeClothes.size();
-        
-        if (accessoryCount >= 10) {
-            cost *= .9;
+
+        if (accessoryCount >= bulkAccThreshold) {
+            cost *= (1 - bulkAccDiscount);
         }
 
         return cost;
@@ -172,7 +176,7 @@ public class BearWorkshop implements BearWorkshopInterface {
         for (Bear thisBear : bearCart) {
             totalRawCost += getRawCost(thisBear);
         }
-        
+
 
         return (totalRawCost - calculateSavings()) * calculateTax();
     }
@@ -210,7 +214,7 @@ public class BearWorkshop implements BearWorkshopInterface {
      */
     public double calculateSavings() {
         double savings = 0;
-        
+
 
         for (int count = 0; count < bearCart.size(); count++) {
             //For some reason, getRawCost() feels the need to reset the bear's price to zero.
@@ -235,36 +239,36 @@ public class BearWorkshop implements BearWorkshopInterface {
             rawCost += thisBear.stuff.price;
             rawCost += thisBear.casing.priceModifier;
             thisBear.rawCost = rawCost;
-            
+
             double discountedPrice = rawCost;
             //Embroidery is free if the bear costs more than $70.
             if (rawCost > 70) {
                 discountedPrice -= thisBear.ink.price;
             }
-            
+
             //Buy three clothes, get one free.
-            int freeClothes = thisBear.clothing.size() / GET_ONE_CLOTHES_FREE;
+            int freeClothes = thisBear.clothing.size() / oneClothesFree;
             if (thisBear.clothing.size() > 2) {
                 Collections.sort(thisBear.clothing);
                 for (int iterations = 0; iterations < freeClothes; iterations++) {
                     discountedPrice -= thisBear.clothing.get(iterations).price;
                 }
             }
-            
+
             //And if you have 10 or more non-free accessories, you get 10% off.
             int accessoryCount = thisBear.clothing.size() + thisBear.noisemakers.size();
-            if (accessoryCount - freeClothes >= TEN_PERCENT_OFF) {
-                discountedPrice = discountedPrice * .9;
+            if (accessoryCount - freeClothes >= bulkAccThreshold) {
+                discountedPrice = discountedPrice * (1 - bulkAccDiscount);
             }
             thisBear.discountedCost = discountedPrice;
             thisBear.price = discountedPrice;
         }
-        
+
         //Now, we sort the bears by adjusted price, make the cheapest one(s) free if applicable,
         //and add any other savings.  
         Collections.sort(bearCart);
-        int freeBears = bearCart.size() / GET_ONE_BEAR_FREE;
-        
+        int freeBears = bearCart.size() / oneBearFree;
+
         for (int count = 0; count < bearCart.size(); count++) {
             Bear thisBear = bearCart.get(count);
             if (count < freeBears) {
@@ -273,9 +277,53 @@ public class BearWorkshop implements BearWorkshopInterface {
                 savings += thisBear.rawCost - thisBear.discountedCost;
             }
         }
-        
+
         return savings;
     }
-    
- 
+
+    /**
+     * Changes the number of bears required to get one free.
+     * Must be at least two.
+     * @param oneBearFree the oneBearFree to set
+     */
+    public static void setOneBearFree(int oneBearFree) {
+        if(oneBearFree > 1) {
+            BearWorkshop.oneBearFree = oneBearFree;
+        }
+    }
+
+    /**
+     * Changes the number of required clothes to get one free.
+     * Must be at least 2.
+     * @param oneClothesFree the oneClothesFree to set
+     */
+    public static void setOneClothesFree(int oneClothesFree) {
+        if (oneClothesFree > 1) {
+            BearWorkshop.oneClothesFree = oneClothesFree;
+        }
+    }
+
+    /**
+     * Changes the number of accessories required for a discount.
+     * Must be at least 0.
+     * @param bulkAccThreshold the bulkAccThreshold to set
+     */
+    public static void setBulkAccThreshold(int bulkAccThreshold) {
+        if(bulkAccThreshold >= 0) {
+            BearWorkshop.bulkAccThreshold = bulkAccThreshold;
+        }
+    }
+
+    /**
+     * Changes the discount when buying many accessories.
+     * Must be less than 100%.
+     * @param bulkAccDiscount the bulkAccDiscount to set
+     */
+    public static void setBulkAccDiscount(double bulkAccDiscount) {
+        if(bulkAccDiscount < 1) {
+            BearWorkshop.bulkAccDiscount = bulkAccDiscount;
+        }
+    }
+
+
 }
