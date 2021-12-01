@@ -1,6 +1,7 @@
  plugins {
      id "com.github.spotbugs" version "4.5.1"
      id "checkstyle"
+     id "pmd"
  }
 
 apply plugin: 'application'
@@ -10,13 +11,10 @@ apply plugin: 'jacoco'
 mainClassName = 'main.java.Main'
 
 
-test {
-	exclude '**/GivenBlackBox.class'
-}
-
 // In this section you declare where to find the dependencies of your project
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 // In this section you declare the dependencies for your production and test code
@@ -25,40 +23,49 @@ dependencies {
     compile files('cls/')
 }
 
+apply plugin: "pmd"
+pmd {
+  ignoreFailures = true 
+  sourceSets = [sourceSets.main]
+  reportsDir = file("$project.buildDir/reports/pmd")
+  ruleSets = []
+  ruleSetConfig = resources.text.fromFile('ruleset.xml')
+}
+
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
 /////////////////////////////////////////////////////////////////////
-apply plugin: 'checkstyle'
-checkstyle {
-  // Keep checkstyle a little quieter
-  ignoreFailures = true
-  showViolations = false
-}
+ apply plugin: 'checkstyle'
+ checkstyle {
+   // Keep checkstyle a little quieter
+   ignoreFailures = true
+   showViolations = false
+ }
 
-tasks.withType(Checkstyle) {
-  reports {
-    html.enabled = true
-    xml.enabled = false
-  }
-}
-checkstyle {
-    toolVersion = "8.8"
-}
+ tasks.withType(Checkstyle) {
+   reports {
+     html.enabled = true
+     xml.enabled = false
+   }
+ }
+ checkstyle {
+     toolVersion = "8.8"
+ }
 
 
 ///////////////////////////////////////////////////////////////////////
 // Configure SpotBugs
 ///////////////////////////////////////////////////////////////////////
 // To generate an HTML report instead of XML
-spotbugsMain {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-spotbugs {
-    toolVersion = '4.0.0-beta4'
-    ignoreFailures = true
-    showProgress = true
-    effort = 'max'
-}
+ spotbugsMain {
+     reports {
+         xml.enabled = false
+         html.enabled = true
+     }
+ }
+ spotbugs {
+     toolVersion = '4.0.0-beta4'
+     ignoreFailures = true
+     showProgress = true
+     effort = 'max'
+ }
