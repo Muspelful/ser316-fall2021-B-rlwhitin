@@ -213,72 +213,24 @@ public class BearWorkshop implements BearWorkshopInterface {
      * @return savings if the customer checks out with the current bears as double
      */
     public double calculateSavings() {
-        double savings = 0;
-
-
-        for (int count = 0; count < bearCart.size(); count++) {
-            //For some reason, getRawCost() feels the need to reset the bear's price to zero.
-            //So we've added some variables to the bears to store their discounted and raw costs,
-            //rather than using it.
-            Bear thisBear = bearCart.get(count);
-            double rawCost = 0;
-            for (int i = 0; i < thisBear.clothing.size(); i++) {
-                Clothing clothes = thisBear.clothing.get(i);
-                rawCost += clothes.price;
-
-            }
-
-            for (NoiseMaker noise: thisBear.noisemakers) {
-                rawCost += noise.price;
-            }
-
-            if (thisBear.ink != null) {
-                rawCost += thisBear.ink.price;
-            }
-
-            rawCost += thisBear.stuff.price;
-            rawCost += thisBear.casing.priceModifier;
-            thisBear.rawCost = rawCost;
-
-            double discountedPrice = rawCost;
-            //Embroidery is free if the bear costs more than $70.
-            if (rawCost > 70) {
-                discountedPrice -= thisBear.ink.price;
-            }
-
-            //Buy three clothes, get one free.
-            int freeClothes = thisBear.clothing.size() / oneClothesFree;
-            if (thisBear.clothing.size() > 2) {
-                Collections.sort(thisBear.clothing);
-                for (int iterations = 0; iterations < freeClothes; iterations++) {
-                    discountedPrice -= thisBear.clothing.get(iterations).price;
-                }
-            }
-
-            //And if you have 10 or more non-free accessories, you get 10% off.
-            int accessoryCount = thisBear.clothing.size() + thisBear.noisemakers.size();
-            if (accessoryCount - freeClothes >= bulkAccThreshold) {
-                discountedPrice = discountedPrice * (1 - bulkAccDiscount);
-            }
-            thisBear.discountedCost = discountedPrice;
-            thisBear.price = discountedPrice;
+        double totalDiscountedCost = 0;
+        double totalRawCost = 0;
+        double totalSavings;
+        for(Bear thisBear : bearCart) {
+            totalRawCost += getRawCost(thisBear);
+            totalDiscountedCost += getCost(thisBear);
         }
-
-        //Now, we sort the bears by adjusted price, make the cheapest one(s) free if applicable,
-        //and add any other savings.  
+        
+        totalSavings = totalRawCost - totalDiscountedCost;
+        
         Collections.sort(bearCart);
         int freeBears = bearCart.size() / oneBearFree;
-
-        for (int count = 0; count < bearCart.size(); count++) {
-            Bear thisBear = bearCart.get(count);
-            if (count < freeBears) {
-                savings += thisBear.rawCost;
-            } else {
-                savings += thisBear.rawCost - thisBear.discountedCost;
-            }
+        
+        for(int count = 0; count < freeBears; count++) {
+            totalSavings += getCost(bearCart.get(count));
         }
-
-        return savings;
+        
+        return totalSavings;
     }
 
     /**
